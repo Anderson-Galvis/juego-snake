@@ -83,7 +83,9 @@ for(let i = snakeBody.length - 1; i > 0; i--){
 // para añadir la posicion cada vez que pasa 
     for(let i = 0; i < snakeBody.length; i++){
         htmlMarkup += `<div class="culebra" style="grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
-
+        if(i !== 0 && snakeBody[0][1] === snakeBody[i][1] && snakeBody[0][0] === snakeBody[i][0]){
+            gameOver= true;
+        }
     }
     
     playBoard.innerHTML = htmlMarkup;
