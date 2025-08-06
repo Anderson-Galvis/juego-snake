@@ -1,4 +1,6 @@
 import { foodX, foodY, changeFoodPosition } from './food.js';
+import { increaseScore, } from './score.js';
+
 
 export let snakeX = 10, snakeY = 30;
 // export let velocidadX = 0, velocidadY = 0;
@@ -15,6 +17,7 @@ export function moveSnake() {
   if (snakeX === foodX && snakeY === foodY) {
     changeFoodPosition();
     snakeBody.push([foodX, foodY]);
+    increaseScore(10);
   }
 
   for (let i = snakeBody.length - 1; i > 0; i--) {

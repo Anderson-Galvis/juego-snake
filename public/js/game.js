@@ -1,6 +1,7 @@
 import { changeFoodPosition, foodX, foodY } from './food.js';
 import { moveSnake, snakeBody, gameOver } from './snake.js';
 import { changeDirection } from './controls.js';
+import { increaseScore, getScore, getLevel, getHighScore, resetScore } from './score.js';
 
 const playBoard = document.querySelector('.playBoard');
 let setIntervalId;
@@ -10,6 +11,14 @@ function handleGameOver() {
   alert('Game Over');
   location.reload();
 }
+
+function updateUI() {
+  document.getElementById("score").textContent = "Puntos: " + getScore();
+  document.getElementById("level").textContent = "Nivel: " + getLevel();
+  document.getElementById("highScore").textContent = "Record: " + getHighScore();
+}
+
+
 
 function draw() {
   if (gameOver) return handleGameOver();
@@ -23,6 +32,7 @@ function draw() {
   }
 
   playBoard.innerHTML = htmlMarkup;
+  updateUI();
 }
 
 changeFoodPosition();
