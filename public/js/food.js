@@ -2,24 +2,25 @@ export let foodX, foodY;
 
 export function changeFoodPosition(obstaculos = [], snakeBody = []) {
   const tamañoCelda = 30;
+  const posicionesLibres = [];
 
-  let nuevaX, nuevaY;
-  let posicionInvalida = true;
-  let intentos = 0;
-
-  while (posicionInvalida && intentos < 1000) {
-    nuevaX = Math.floor(Math.random() * tamañoCelda) + 1;
-    nuevaY = Math.floor(Math.random() * tamañoCelda) + 1;
-    intentos++;
-
-    const colisionaConObstaculo = obstaculos.some(o => o.x === nuevaX && o.y === nuevaY);
-    const colisionaConCulebra = snakeBody.some(([x, y]) => x === nuevaX && y === nuevaY);
-
-    if (!colisionaConObstaculo && !colisionaConCulebra) {
-      posicionInvalida = false;
+  for (let x = 1; x <= tamañoCelda; x++) {
+    for (let y = 1; y <= tamañoCelda; y++) {
+      const ocupadaPorObstaculo = obstaculos.some(o => o.x === x && o.y === y);
+      const ocupadaPorSerpiente = snakeBody.some(([sx, sy]) => sx === x && sy === y);
+      if (!ocupadaPorObstaculo && !ocupadaPorSerpiente) {
+        posicionesLibres.push({ x, y });
+      }
     }
   }
 
-  foodX = nuevaX;
-  foodY = nuevaY;
+  if (posicionesLibres.length === 0) {
+    console.log("No hay posiciones libres para la comida");
+    // Aquí puedes decidir qué hacer, por ejemplo reiniciar juego o gameOver
+    return;
+  }
+
+  const index = Math.floor(Math.random() * posicionesLibres.length);
+  foodX = posicionesLibres[index].x;
+  foodY = posicionesLibres[index].y;
 }
