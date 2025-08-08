@@ -62,3 +62,7 @@ body{
     color: white;
   }
   
+  .bloque {
+    background-color: gray;
+    border-radius: 4px;
+  }
